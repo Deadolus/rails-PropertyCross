@@ -19,6 +19,7 @@ require 'assets/nestoria/lib/nestoria/api.rb'
 #PropertyListing = Struct.hash_initialized :price, :title, :img_url, :thumb_url,  :bedroom_number, :bathroom_number, :summary
 
 class PropertyListing
+            include ActiveModel::Conversion
     attr_accessor :title, :img_url, :thumb_url, :summary
     attr_reader :price, :bedroom_number, :bathroom_number
 
