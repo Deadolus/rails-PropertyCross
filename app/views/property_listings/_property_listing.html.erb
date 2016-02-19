@@ -1,9 +1,15 @@
 <% if property_listing then %>
-    <li class="property">
-    <%= image_tag property_listing.thumb_url %>
-    <%= property_listing.title %>
-    </li>
+    <%#= link_to image_tag(property_listing.thumb_url).html_safe+property_listing.title , '#' %>
+    <tr class="property" data-url=<%= listing_house_path(@location,property_listing_iteration.index) %>>
+            <td  >
+            <%= image_tag(property_listing.thumb_url).html_safe %>
+        </td>
+        <td>
+        <%=  property_listing.title %>
+</td>
+    </tr>
 <% else %>
-
-no valid listing 
+        <tr colspan="2">
+        no valid listing 
+    </tr>
 <% end %>

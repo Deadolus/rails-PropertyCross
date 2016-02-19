@@ -1,36 +1,49 @@
-ol.property-listing {
-    list-style-type: none;
-    li {
-        font-size: 2em;
+a {
+    &:hover {
+        text-decoration: none;
+        color: inherit;
+    }
+        color: inherit;
+}
+//Property listing table
+table.property-listing {
+    td {
+        font-size: 2em
     }
 }
-
+table {
+    //Have to be very specific to overwrite bootstrap alignment
+    tbody > tr >td {
+    vertical-align: middle;
+}
+tr:hover {
+font-weight: bold; 
+}
+//    list-style-type: none;
+//    li {
+//        font-size: 2em;
+//    }
+//    tr {
+//        border: 1px solid black;
+//    }
+}
+//tr.property {
+//    padding: 10px;
+//    &:hover {
+//        background-color: silver;
+//        font-weight: bold;
+//    }
+//}
+//recent searches
 ul.recent-searches {
     list-style-type: none;
-    &,a {
-        &:hover {
-            text-decoration: none
-        }
-
-    }
 }
-li.recent-search {
+td.recent-search {
     font-size: 2em;
     margin: 2rem;
-    &:hover {
-        background-color: silver;
-        font-weight: bold;
-    }
 }
 h2.recent-searches {
     font-size: 2.5em;
     font-weight: bold;
-}
-li.property {
-    margin: 10px;
-    &:hover {
-        background-color: silver;
-        font-weight: bold;
-    }
 }
 

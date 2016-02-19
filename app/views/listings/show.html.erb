@@ -1,10 +1,10 @@
 <% provide(:title, "Properties for "+@location) %>
 <%-# debugger %>
 <% if @propertylistings.any? %>
-    <ol class="property-listing">
+    <table class="table-striped table table-hover property-listing" style="width:100%">
     <%= render @propertylistings %>
     <%-# render partial: "propertylisting", collection: @propertylistings %>
-</ol>
+</table>
 <% else %>
     no location given
 <% end %>

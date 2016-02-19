@@ -14,17 +14,17 @@ class Listing
     include ActiveModel::Conversion
     extend ActiveModel::Naming
 
-    attr_reader :listings
-    attr_accessor :location
+    #attr_reader :listings
+    #attr_accessor :location
 
-    validates :location, presence: true
+    #validates :location, presence: true
 
-    def initialize(attributes = {})
-        @@nestoria = MyNestoria.new
-        attributes.each do |name, value|
-            send("#{name}=", value)
-        end
-    end
+    #Initialize attributes
+    #def initialize(attributes = {})
+    #    attributes.each do |name, value|
+    #        send("#{name}=", value)
+    #    end
+    #end
 
     #from tutorial, maybe not needed?
     #def persisted?

@@ -39,6 +39,11 @@ class SearchForLocationTest < ActionDispatch::IntegrationTest
         post listings_path, search: { location: "Leeds" }
         follow_redirect!
         get root_path
-        assert_select "a[href=?]", listing_path("Leeds"), count: 1
+        assert_select "a[href=?]", listing_path("leeds"), count: 1
+        #Also no case
+        post listings_path, search: { location: "LeEdS" }
+        follow_redirect!
+        get root_path
+        assert_select "a[href=?]", listing_path("leeds"), count: 1
     end
 end

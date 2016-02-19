@@ -17,3 +17,12 @@
 //= require_tree .
 
 Turbolinks.enableProgressBar();
+$(document).ready( function() {
+ $(".property-listing").on("click", "tr", function() {
+            var url = $( this ).data("url");
+            if(url != "") {
+            document.location.href = url;
+            }
+             });
+
+});

@@ -1,0 +1,15 @@
+<% provide(:title, "£"+@house.price.to_s) %>
+<div class="row">
+        <%= @house.title %>
+    </div>
+<div class="row">
+    <div class="col-md-4">
+        <%= image_tag @house.img_url %>
+    </div>
+    <div class="col-md-6">
+    <%= @house.bedroom_number.to_s+" Bedroom".pluralize(@house.bedroom_number) %>, <%= @house.bathroom_number.to_s+" Bathroom".pluralize(@house.bathroom_number) %> 
+        <div class="house-summary">
+            <%= @house.summary %>
+        </div>
+        </div>
+</div>

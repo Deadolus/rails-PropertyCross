@@ -6,7 +6,7 @@
 
     <% if @recentsearches then %>
 <h2 class="recent-searches">Recent searches</h2>
-<ul class="recent-searches">
+<table class="recent-searches table-striped table table-hover">
         <%= render  partial: 'shared/recent_search', collection: @recentsearches.reverse[0..3] %>
-</ul>
+</table>
     <% end %>
