@@ -1,0 +1,23 @@
+require 'assets/nestoria/lib/nestoria/api.rb'
+class MyNestoria
+    attr_accessor :price
+    attr_accessor :location
+    attr_accessor :image
+    attr_accessor :bedrooms
+    attr_accessor :bathrooms
+    attr_accessor :summary
+
+    def initialize
+        @@nestoria = Nestoria::Api.new(:uk)
+    end
+
+    private
+    def getProperties(place, page=1)
+        response = @@nestoria.search :listing_type => "buy", :place_name => place, :page => page
+        listings = response["listings"]
+        listings.each do |listing|
+            listing.symbolize_keys!
+        end
+    end
+
+end

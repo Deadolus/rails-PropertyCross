@@ -1,0 +1,12 @@
+<% provide(:title, "Search for Properties") %>
+<%= bootstrap_form_for(:search, url: listings_path) do |f| %>
+    <%= f.text_field :location %>
+    <%= f.submit 'Search' %>
+<% end %>
+
+    <% if @recentsearches then %>
+<h2 class="recent-searches">Recent searches</h2>
+<ul class="recent-searches">
+        <%= render  partial: 'shared/recent_search', collection: @recentsearches.reverse[0..3] %>
+</ul>
+    <% end %>

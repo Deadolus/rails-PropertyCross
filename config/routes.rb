@@ -1,11 +1,20 @@
 Rails.application.routes.draw do
+
   mount Sidekiq::Web => "/sidekiq" # monitoring console
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
+  resources :listings, only: [:new, :show, :create, :post], param: :location
+  #get "/listings" => "listings#show", :as => :listings, via: :get
+  #get "/listings/new" => "listings#new", :as => :new_listings
+  #post "/listings" => "listings#create", :as => :clistings, via: :post
+  #get "/listings/:location" => "listings#show", :as => :show_listings
   # You can have the root of your site routed with "root"
-  root "home#index"
+  root "listings#new"
+
+ #resources :listings, :only [ :index]
+
 
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'

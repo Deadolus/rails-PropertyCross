@@ -1,0 +1,10 @@
+<% provide(:title, "Properties for "+@location) %>
+<%-# debugger %>
+<% if @propertylistings.any? %>
+    <ol class="property-listing">
+    <%= render @propertylistings %>
+    <%-# render partial: "propertylisting", collection: @propertylistings %>
+</ol>
+<% else %>
+    no location given
+<% end %>

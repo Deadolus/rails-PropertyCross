@@ -36,7 +36,8 @@ group :development do
   gem "quiet_assets"
   gem "rack-livereload"
   gem "spring"
-  gem "xray-rails", ">= 0.1.18"
+  #gem "xray-rails", ">= 0.1.18"
+  gem "xray-rails"
 end
 
 group :development do
@@ -57,6 +58,7 @@ group :development do
   gem "terminal-notifier", :require => false
   gem "terminal-notifier-guard", :require => false
   gem "thin", :require => false
+  gem 'byebug'
 end
 
 group :test do
@@ -69,4 +71,7 @@ group :test do
   gem "shoulda-context"
   gem "shoulda-matchers", ">= 3.0.1"
   gem "test_after_commit"
+  gem 'byebug'
+  gem 'simplecov', :require => false, :group => :test
 end
+

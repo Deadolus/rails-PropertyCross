@@ -1,0 +1,9 @@
+<% if property_listing then %>
+    <li class="property">
+    <%= image_tag property_listing.thumb_url %>
+    <%= property_listing.title %>
+    </li>
+<% else %>
+
+no valid listing 
+<% end %>
