@@ -2,7 +2,7 @@
     <div class="col-md-4 col-xs-4">
         <h1> <%= "£"+@house.price.to_s %><h1> 
             </div>
-            <div class="col-md-1 col-md-offset-7 col-xs-1 col-xs-offset-7 favourite-form">
+            <div class="col-md-1 col-md-offset-7 col-xs-2 col-xs-offset-6 favourite-form">
                 <% if house_is_favourite? @house.title  then %>
                     <%= form_for :favourite, url: favourite_path, method: :delete do |f| %>
                     <%= f.hidden_field :title, :value => @house.title %>

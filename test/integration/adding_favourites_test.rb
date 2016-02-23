@@ -26,6 +26,5 @@ class AddingFavouritesTest < ActionDispatch::IntegrationTest
         assert_match @house[:price], response.body
         assert_match @house[:bedroom_number].to_s, response.body
         assert_match @house[:bathroom_number].to_s, response.body
-
     end
 end
