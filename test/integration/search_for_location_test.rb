@@ -46,4 +46,13 @@ class SearchForLocationTest < ActionDispatch::IntegrationTest
         get root_path
         assert_select "a[href=?]", listing_path("leeds"), count: 1
     end
+
+    #This test is a bit brittle, if the listing changes between the controller GET and the Listing GET it may fail
+    test "all properties should be shown" do
+        post listings_path,  search: { "location" => "london"}
+        follow_redirect!
+        Listing.get_properties("London").each do |house|
+            assert_match house.title, response.body
+        end
+    end
 end

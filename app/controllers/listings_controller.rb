@@ -21,7 +21,7 @@ class ListingsController < ApplicationController
           redirect_to listing_url(params["search"]["location"])
       else
           redirect_to root_path
-          flash[:warning] = "Invalid search"
+          flash[:alert] = "Invalid search"
       end
   end
 end

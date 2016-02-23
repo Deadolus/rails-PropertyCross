@@ -27,9 +27,9 @@ class Listing
     #end
 
     #from tutorial, maybe not needed?
-    #def persisted?
-    #    false
-    #end
+    def persisted?
+        false
+    end
 
     #Gets properties from nestoria
     def Listing.get_properties(location=@location, page=1)

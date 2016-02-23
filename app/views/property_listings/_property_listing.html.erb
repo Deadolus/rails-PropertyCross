@@ -1,10 +1,9 @@
 <% if property_listing then %>
-    <%#= link_to image_tag(property_listing.thumb_url).html_safe+property_listing.title , '#' %>
-    <tr class="property" data-url=<%= listing_house_path(@location,property_listing_iteration.index) %>>
-            <td  >
+    <tr class="property" data-url="<%= url %>">
+            <td>
             <%= image_tag(property_listing.thumb_url).html_safe %>
         </td>
-        <td>
+        <td class="house-title">
         <%=  property_listing.title %>
 </td>
     </tr>

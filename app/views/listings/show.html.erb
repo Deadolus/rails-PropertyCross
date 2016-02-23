@@ -1,9 +1,9 @@
 <% provide(:title, "Properties for "+@location) %>
-<%-# debugger %>
 <% if @propertylistings.any? %>
-    <table class="table-striped table table-hover property-listing" style="width:100%">
-    <%= render @propertylistings %>
-    <%-# render partial: "propertylisting", collection: @propertylistings %>
+    <table class="table-striped table table-hover property-listing table-clickeable" style="width:100%">
+        <% @propertylistings.each_with_index do |listing, counter| %>
+        <%= render listing,  url: listing_house_path(@location,counter)  %>
+    <% end %>
 </table>
 <% else %>
     no location given

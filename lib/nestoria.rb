@@ -19,18 +19,21 @@ require 'assets/nestoria/lib/nestoria/api.rb'
 #PropertyListing = Struct.hash_initialized :price, :title, :img_url, :thumb_url,  :bedroom_number, :bathroom_number, :summary
 
 class PropertyListing
-            include ActiveModel::Conversion
+    include ActiveModel::Conversion
     attr_accessor :title, :img_url, :thumb_url, :summary
     attr_reader :price, :bedroom_number, :bathroom_number
 
     def initialize args
-        args.each do |k,v|
-            instance_variable_set("@#{k}", v) unless v.nil?
+        if args then
+            args.symbolize_keys!
+            args.each do |k,v|
+                instance_variable_set("@#{k}", v) unless v.nil?
+            end
+            #These variables have to be set separately, doesn't work with instance_variable_set
+            self.price = args[:price]
+            self.bedroom_number = args[:bedroom_number]
+            self.bathroom_number = args[:bathroom_number]
         end
-        #These variables have to be set separately, doesn't work with instance_variable_set
-        @price = args[:price]
-        @bedroom_number = args[:bedroom_number]
-        @bathroom_number = args[:bathroom_number]
     end
 
     def price=(str)
@@ -41,6 +44,10 @@ class PropertyListing
     end
     def bathroom_number=(str)
         @bathroom_number = str.to_i
+    end
+
+    def persisted?
+        true
     end
 end
 

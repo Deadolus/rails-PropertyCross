@@ -1,6 +1,5 @@
 Rails.application.routes.draw do
 
-
   mount Sidekiq::Web => "/sidekiq" # monitoring console
 
   # The priority is based upon order of creation: first created -> highest priority.
@@ -10,6 +9,7 @@ Rails.application.routes.draw do
       resources :houses, only: [:show]
       get '/:id' => 'houses#show'
   end
+  resources :favourites, only: [:index, :show, :create, :destroy ]
   #get "/listings/new" => "listings#new", :as => :new_listings
   #post "/listings" => "listings#create", :as => :clistings, via: :post
   #get "/listings/:location" => "listings#show", :as => :show_listings

@@ -18,9 +18,9 @@
 
 Turbolinks.enableProgressBar();
 $(document).ready( function() {
- $(".property-listing").on("click", "tr", function() {
+ $(".table-clickeable").on("click", "tr", function() {
             var url = $( this ).data("url");
-            if(url != "") {
+            if((typeof url !== 'undefined') && (url != "")) {
             document.location.href = url;
             }
              });

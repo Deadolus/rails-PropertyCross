@@ -1,0 +1,7 @@
+<% provide(:title, "Favourites") %>
+    <%#= render 'property_listings/property_listing', collection: @favourites %>
+    <table class="table-striped table table-hover property-listing table-clickeable" style="width:100%">
+        <% @propertylistings.each_with_index do |listing, counter| %>
+    <%= render listing, url: favourite_path(counter)%>
+<% end %>
+</table>
