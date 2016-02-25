@@ -10,7 +10,7 @@ class SearchForLocationTest < ActionDispatch::IntegrationTest
         post listings_path,  search: { "location" => "london"}
         assert_redirected_to listing_path "london"
         follow_redirect!
-        assert_match "Properties for London", response.body
+        assert_match /20 of .* matches/, response.body
         assert_select '.property', count: 20
         get root_path
         assert_select '.recent-search', count: 1
@@ -49,10 +49,17 @@ class SearchForLocationTest < ActionDispatch::IntegrationTest
 
     #This test is a bit brittle, if the listing changes between the controller GET and the Listing GET it may fail
     test "all properties should be shown" do
-        post listings_path,  search: { "location" => "london"}
+        post listings_path,  search: { "location" => "London"}
         follow_redirect!
         Listing.get_properties("London").each do |house|
-            assert_match house.title, response.body
+            assert_match CGI::escapeHTML(house.title), response.body
         end
     end
+
+    test "the results page should show how man properties there are" do
+        post listings_path,  search: { "location" => "london"}
+        follow_redirect!
+        assert_match Listing.get_total_number("London").to_s, response.body
+    end
+
 end

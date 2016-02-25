@@ -2,7 +2,7 @@
 <% if @propertylistings.any? %>
     <table class="table-striped table table-hover property-listing table-clickeable" style="width:100%">
         <% @propertylistings.each_with_index do |listing, counter| %>
-        <%= render listing,  url: listing_short_house_path(@location,counter)  %>
+        <%= render listing,  url: @url+counter.to_s   %>
     <% end %>
 </table>
 <% else %>

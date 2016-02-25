@@ -20,6 +20,7 @@ gem "secure_headers", "~> 2.5"
 gem "sidekiq"
 gem "sinatra", ">= 1.3.0", :require => false
 gem "turbolinks", ">= 2.5.2"
+gem "geocoder"
 
 group :production, :staging do
   gem "unicorn"

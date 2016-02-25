@@ -60,9 +60,21 @@ class MyNestoria
         get_listings(place, page)
     end
 
+    def search_location(lat, lon, page=1)
+        get_location_listings(lat, lon, page)
+    end
+
     private
+    def get_location_listings(lat, lon, page=1)
+        response = @@nestoria.search :listing_type => "buy", :centre_point => [lat,lon], :page => page
+        return process_response(response)
+    end
     def get_listings(place, page=1)
         response = @@nestoria.search :listing_type => "buy", :place_name => place, :page => page
+        return process_response(response)
+    end
+
+    def process_response(response)
         if listings = response["listings"] then
             listings.each do |listing|
                 listing.symbolize_keys!
@@ -71,6 +83,7 @@ class MyNestoria
         else
             return {}, response["total_results"]
         end
+
     end
 
 end

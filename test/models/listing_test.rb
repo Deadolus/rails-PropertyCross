@@ -10,7 +10,5 @@ class ListingTest < ActiveSupport::TestCase
         assert_equal PropertyListing, listings.first.class
         listings = Listing.get_properties("testingstring")
         assert_equal 0, listings.count
-        listings = Listing.get_properties()
-        assert_equal 0, listings.count
     end
 end

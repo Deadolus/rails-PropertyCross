@@ -35,7 +35,7 @@ class Listing
     end
 
     #Gets properties from nestoria
-    def self.get_properties(location, page=1)
+    def self.get_properties_with_total_number(location, page=1)
         @listings = []
         @@nestoria ||= MyNestoria.new
         if(location) then
@@ -43,10 +43,30 @@ class Listing
             listings.each do |listing|
                 @listings << PropertyListing.new(listing)
             end
-            return @listings
+            return @listings, total_number
         else
-            return @listings
+            return @listings, total_number
         end
+    end
+    def self.get_properties(location, page=1)
+        self.get_properties_with_total_number(location, page).first
+    end
+    def self.get_location_with_total_number(lat, lon, page=1)
+        @listings = []
+        @@nestoria ||= MyNestoria.new
+        if lat.to_f && lon.to_f then
+            listings, total_number = @@nestoria.search_location(lat, lon, page)
+            listings.each do |listing|
+                @listings << PropertyListing.new(listing)
+            end
+            return @listings, total_number
+        else
+            return @listings, total_number
+        end
+    end
+
+    def self.get_location(lat, lon, page=1)
+        self.get_location_with_total_number(lat,lon, page).first
     end
 
     def self.get_total_number(location, page=1)

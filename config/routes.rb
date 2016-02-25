@@ -5,8 +5,12 @@ Rails.application.routes.draw do
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
-  resources :listings, only: [:new, :show, :create, :post], param: :location do
-      resources :houses, only: [:show]
+  #get '/listings/mylocation' => 'listings#create_location_based', :as => :location_listing
+  #get '/listings/:location' => 'listings#show', :as => :listing
+  get '/listings/:latitude/:longitude', to: 'listings#show', :as => :location_listing, :constraints => {:latitude => /\-?\d+(.\d+)?/, :longitude => /\-?\d+(.\d+)?/ }
+  get '/listings/:latitude/:longitude/:id', to: 'houses#show',  :constraints => {:latitude => /\-?\d+(.\d+)?/, :longitude => /\-?\d+(.\d+)?/ }
+  resources :listings, only: [:show, :new, :create, :post], param: :location do
+      #resources :houses, only: [:show]
       get '/:id' => 'houses#show', :as => :short_house
   end
   resources :favourites, only: [:index, :show, :create, :destroy ]
