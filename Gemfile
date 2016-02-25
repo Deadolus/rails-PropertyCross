@@ -45,6 +45,7 @@ end
 
 group :development, :test do
   gem "simplecov", :require => false
+  gem 'byebug'
 end
 group :development do
   gem "airbrussh", :require => false
@@ -63,7 +64,6 @@ group :development do
   gem "terminal-notifier", :require => false
   gem "terminal-notifier-guard", :require => false
   gem "thin", :require => false
-  gem 'byebug'
 end
 
 group :test do
@@ -76,6 +76,5 @@ group :test do
   gem "shoulda-context"
   gem "shoulda-matchers", ">= 3.0.1"
   gem "test_after_commit"
-  gem 'byebug'
 end
 
