@@ -53,7 +53,7 @@ end
 
 class MyNestoria
     def initialize
-        @@nestoria = Nestoria::Api.new(:uk)
+        @@nestoria = Nestoria::Api.new(:uk, true)
     end
 
     def search_place(place, page = 1)
@@ -67,9 +67,9 @@ class MyNestoria
             listings.each do |listing|
                 listing.symbolize_keys!
             end
-            return listings
+            return listings, response["total_results"]
         else
-            return {}
+            return {}, response["total_results"]
         end
     end
 

@@ -7,7 +7,7 @@ Rails.application.routes.draw do
 
   resources :listings, only: [:new, :show, :create, :post], param: :location do
       resources :houses, only: [:show]
-      get '/:id' => 'houses#show'
+      get '/:id' => 'houses#show', :as => :short_house
   end
   resources :favourites, only: [:index, :show, :create, :destroy ]
   #get "/listings/new" => "listings#new", :as => :new_listings

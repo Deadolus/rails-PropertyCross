@@ -9,6 +9,7 @@ class ListingsController < ApplicationController
   def show
       @location = params[:location].blank? ? "" : params[:location].capitalize
       @propertylistings = Listing.get_properties(@location)
+      @total_number = Listing.get_total_number(@location)
       if @propertylistings.any? then 
           (session[:recentsearches] ||= []) << params[:location].downcase
           session[:recentsearches].uniq!

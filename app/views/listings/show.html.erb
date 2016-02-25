@@ -1,8 +1,8 @@
-<% provide(:title, "Properties for "+@location) %>
+<% provide(:title, @propertylistings.count.to_s+" of "+@total_number.to_s+" matches") %>
 <% if @propertylistings.any? %>
     <table class="table-striped table table-hover property-listing table-clickeable" style="width:100%">
         <% @propertylistings.each_with_index do |listing, counter| %>
-        <%= render listing,  url: listing_house_path(@location,counter)  %>
+        <%= render listing,  url: listing_short_house_path(@location,counter)  %>
     <% end %>
 </table>
 <% else %>

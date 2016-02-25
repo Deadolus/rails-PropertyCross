@@ -30,19 +30,30 @@ class Listing
     def persisted?
         false
     end
+    def initialize
+        @@nestoria ||= MyNestoria.new
+    end
 
     #Gets properties from nestoria
-    def Listing.get_properties(location=@location, page=1)
+    def self.get_properties(location, page=1)
         @listings = []
+        @@nestoria ||= MyNestoria.new
         if(location) then
-            nestoria = MyNestoria.new
-            listings = nestoria.search_place(location, page)
+            listings, total_number = @@nestoria.search_place(location, page)
             listings.each do |listing|
                 @listings << PropertyListing.new(listing)
             end
             return @listings
         else
             return @listings
+        end
+    end
+
+    def self.get_total_number(location, page=1)
+        @@nestoria ||= MyNestoria.new
+        if location && page>=1 then
+            listings, total_number = @@nestoria.search_place(location, page)
+            return total_number
         end
     end
 end
