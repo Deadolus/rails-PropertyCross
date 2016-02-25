@@ -1,0 +1,3 @@
+[submodule "lib/assets/nestoria"]
+	path = lib/assets/nestoria
+	url = git@github.com:Deadolus/nestoria.git
