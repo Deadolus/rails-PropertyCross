@@ -1,4 +1,4 @@
-require 'assets/nestoria/lib/nestoria/api.rb'
+require 'assets/nestoria/lib/nestoria/api'
 
 #See http://stackoverflow.com/questions/2680523/dry-ruby-initialization-with-hash-argument
 #This is a general class initializer
