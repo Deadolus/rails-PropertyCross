@@ -41,6 +41,9 @@ group :development do
   gem "xray-rails"
 end
 
+group :development, :test do
+  gem "simplecov", :require => false
+end
 group :development do
   gem "airbrussh", :require => false
   gem "brakeman", :require => false
@@ -54,7 +57,6 @@ group :development do
   gem "guard-livereload", :require => false
   gem "guard-minitest", :require => false
   gem "rb-fsevent", :require => false
-  gem "simplecov", :require => false
   gem "sshkit", "~> 1.8", :require => false
   gem "terminal-notifier", :require => false
   gem "terminal-notifier-guard", :require => false
@@ -73,6 +75,5 @@ group :test do
   gem "shoulda-matchers", ">= 3.0.1"
   gem "test_after_commit"
   gem 'byebug'
-  gem 'simplecov', :require => false, :group => :test
 end
 
