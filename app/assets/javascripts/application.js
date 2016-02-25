@@ -25,4 +25,12 @@ $(document).ready( function() {
             }
              });
 
+ $(".load-more").on("click",  function() {
+     $( this )[0].innerHTML = "Loading..."
+            var url = $( this ).data("url");
+            document.location.href = document.location.href+"?page=2"
+            //if((typeof url !== 'undefined') && (url != "")) {
+            //document.location.href = url;
+            //}
+             });
 });

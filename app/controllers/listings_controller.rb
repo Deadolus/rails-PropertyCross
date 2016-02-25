@@ -7,11 +7,12 @@ class ListingsController < ApplicationController
     end
 
     def show
+        @page = params.has_key?(:page) ? params[:page] : 1
         if params[:location]
             location = params[:location].blank? ? "" : params[:location].capitalize
             #Generate a valid url, chop the id (0) from the string
             @url = listing_short_house_path(location, 0).chop
-            @propertylistings, @total_number = Listing.get_properties_with_total_number(location)
+            @propertylistings, @total_number = Listing.get_properties_with_total_number(location, @page)
             if @propertylistings.any? then 
                 (session[:recentsearches] ||= []) << params[:location].downcase
                 session[:recentsearches].uniq!
@@ -20,7 +21,7 @@ class ListingsController < ApplicationController
             #search with lat/lon
             @latitude = params[:latitude]
             @longitude = params[:longitude]
-            @propertylistings, @total_number = Listing.get_location_with_total_number(@latitude, @longitude)
+            @propertylistings, @total_number = Listing.get_location_with_total_number(@latitude, @longitude, @page)
             @url = location_listing_path(@latitude, @longitude)+"/"
             @location = params[:latitude]+"/".html_safe+params[:longitude]
             if @propertylistings.any? then 

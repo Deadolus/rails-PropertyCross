@@ -39,9 +39,12 @@ class Listing
         @listings = []
         @@nestoria ||= MyNestoria.new
         if(location) then
-            listings, total_number = @@nestoria.search_place(location, page)
+            total_number = 0
+            page.to_i.times do |p|
+            listings, total_number = @@nestoria.search_place(location, p+1)
             listings.each do |listing|
                 @listings << PropertyListing.new(listing)
+            end
             end
             return @listings, total_number
         else
@@ -55,9 +58,11 @@ class Listing
         @listings = []
         @@nestoria ||= MyNestoria.new
         if lat.to_f && lon.to_f then
-            listings, total_number = @@nestoria.search_location(lat, lon, page)
+            page.to_i.times do |p|
+            listings, total_number = @@nestoria.search_location(lat, lon, p+1)
             listings.each do |listing|
                 @listings << PropertyListing.new(listing)
+            end
             end
             return @listings, total_number
         else

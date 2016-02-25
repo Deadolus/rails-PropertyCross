@@ -4,6 +4,9 @@
         <% @propertylistings.each_with_index do |listing, counter| %>
         <%= render listing,  url: @url+counter.to_s   %>
     <% end %>
+    <tr   data-url=#><td class="center-align load-more" colspan=2 >
+            Load more...
+    </td></tr>
 </table>
 <% else %>
     no location given
