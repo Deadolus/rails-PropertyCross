@@ -1,6 +1,6 @@
 source "https://rubygems.org"
 
-'ruby' '2.2.4'
+ruby '2.2.4'
 
 gem "active_type", ">= 0.3.2"
 gem "autoprefixer-rails", ">= 5.0.0.1"
