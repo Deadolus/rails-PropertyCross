@@ -36,42 +36,59 @@ class Listing
 
     #Gets properties from nestoria
     def self.get_properties_with_total_number(location, page=1)
-        @listings = []
         @@nestoria ||= MyNestoria.new
         if(location) then
+            listings = []
             total_number = 0
             page.to_i.times do |p|
-            listings, total_number = @@nestoria.search_place(location, p+1)
-            listings.each do |listing|
-                @listings << PropertyListing.new(listing)
+                l, total_number = @@nestoria.search_place(location, p+1)
+                l.each do |listing|
+                    listings << PropertyListing.new(listing)
+                end
             end
-            end
-            return @listings, total_number
+            return listings, total_number
         else
-            return @listings, total_number
+            return listings, total_number
         end
     end
     def self.get_properties(location, page=1)
         self.get_properties_with_total_number(location, page).first
     end
+
+    def self.get_house(location, id)
+        return self.get_house_with_total_number(location, id).first
+    end
+    def self.get_house_with_total_number(location, id)
+        listing = self.get_properties_with_total_number(location, id/20+1)
+        return listing.first[id], listing.second
+    end
+
     def self.get_location_with_total_number(lat, lon, page=1)
-        @listings = []
         @@nestoria ||= MyNestoria.new
         if lat.to_f && lon.to_f then
+            listings = []
+            total_number = 0
             page.to_i.times do |p|
-            listings, total_number = @@nestoria.search_location(lat, lon, p+1)
-            listings.each do |listing|
-                @listings << PropertyListing.new(listing)
+                l, total_number = @@nestoria.search_location(lat, lon, p+1)
+                l.each do |listing|
+                    listings << PropertyListing.new(listing)
+                end
             end
-            end
-            return @listings, total_number
+            return listings, total_number
         else
-            return @listings, total_number
+            return listings, total_number
         end
     end
 
     def self.get_location(lat, lon, page=1)
         self.get_location_with_total_number(lat,lon, page).first
+    end
+    def self.get_location_house_with_total_number(lat, lon, id)
+        listing = self.get_location_with_total_number(lat, lon, id/20+1)
+        return listing.first[id], listing.second
+    end
+    def self.get_location_house(lat, lon, id)
+        return self.get_location_house_with_total_number(lat, lon, id).first
     end
 
     def self.get_total_number(location, page=1)
