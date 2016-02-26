@@ -1,3 +1,4 @@
+<% if recent_search["name"] && recent_search["results"] %>
 <%# Can't use listing_path as it escapes forward slashes in location searches %>
     <tr data-url="/listings/<%= recent_search["name"].capitalize %>" >
     <td class="recent-search" >
@@ -7,3 +8,4 @@
         (<%= recent_search["results"].to_i %>)
     </td>
 </tr>
+<% end %>
