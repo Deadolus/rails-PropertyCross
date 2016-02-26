@@ -20,9 +20,18 @@ class ListingsController < ApplicationController
         end
         if @total_number.to_i > 0 then
                 add_to_recent_searches(location, @total_number)
+            respond_to do |format|
+                format.html 
+                format.js 
+            end
             else
+                respond_to do |format| 
+                    format.html {
                 redirect_to root_path
                 flash[:alert] = "There were no properties found for the given location."
+                    }
+                    format.js
+                end
             end
     end
 

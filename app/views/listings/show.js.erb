@@ -1,0 +1,5 @@
+<% @propertylistings.last(20).each do |house| %>
+$('#property-listing tr:last').before(" <%= escape_javascript(render :partial => 'property_listings/property_listing', :locals => { :property_listing => house, :url => 10 }  ) %> " );
+<% end %>
+$(".load-more")[0].innerHTML = "Load more...";
+$('.page-header h1').text("<%= @propertylistings.count.to_s+" of "+@total_number.to_s+" matches"%>")

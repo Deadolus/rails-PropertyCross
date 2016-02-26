@@ -54,6 +54,23 @@ $(document).ready( function() {
      var page = QueryString.page;
      if(typeof page == 'undefined')
          page = 1;
-     window.location= window.location.href.split('?')[0]+"?page="+(parseInt(page)+1)
+         //$.ajax(url: window.location.href.split('?')[0]+"?page="+(parseInt(page)+1) ).done(html) {
+         //$.ajax(url: "/listings/London?page=2" ).done(html) {
+         //    alert(html);
+         //}
+     //window.location= window.location.href.split('?')[0]+"?page="+(parseInt(page)+1)
+     $.ajax({
+           url: window.location.pathname+"?page="+(parseInt(page)+1),
+             context: document.body, 
+             dataType: 'script' 
+     }).done(function(html) {
+     if(typeof QueryString.page == 'undefined')
+         QueryString.page = 2;
+         else
+         QueryString.page = QueryString.page+1;
+
+           //alert(html);
+           //$( this ).addClass( "done" );
+     });
              });
 });
