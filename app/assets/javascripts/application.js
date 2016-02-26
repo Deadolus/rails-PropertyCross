@@ -49,7 +49,10 @@ $(document).ready( function() {
              });
 
  $(".load-more").on("click",  function() {
-     $( this )[0].innerHTML = "Loading..."
-     document.location.href = window.location.href.split('?')[0]+"?page="+(parseInt(QueryString.page)+1)
+     $( this )[0].innerHTML = "Loading...";
+     var page = QueryString.page;
+     if(typeof page == 'undefined')
+         page = 1;
+     document.location.href = window.location.href.split('?')[0]+"?page="+(parseInt(page)+1)
              });
 });
