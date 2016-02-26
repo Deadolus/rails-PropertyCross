@@ -1,5 +1,9 @@
-<tr data-url="listings/<%= recent_search.capitalize %>">
+<%# Can't use listing_path as it escapes forward slashes in location searches %>
+    <tr data-url="/listings/<%= recent_search["name"].capitalize %>" >
     <td class="recent-search" >
-        <%= recent_search.capitalize %>
+        <%= recent_search["name"].capitalize %>
+    </td>
+    <td class="recent-search-number" >
+        (<%= recent_search["results"].to_i %>)
     </td>
 </tr>

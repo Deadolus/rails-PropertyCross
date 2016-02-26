@@ -22,42 +22,31 @@ table.property-listing {
     tr:hover {
         font-weight: bold; 
     }
-    //    list-style-type: none;
-    //    li {
-        //        font-size: 2em;
-        //    }
-        //    tr {
-            //        border: 1px solid black;
-            //    }
+    tr.clicked {
+    background: gray;
+    }
+}
+//recent searches
+ul.recent-searches {
+    list-style-type: none;
+}
+td.recent-search, td.recent-search-number {
+    font-size: 2em;
+    margin: 2rem;
+}
+h2.recent-searches {
+    font-size: 2.5em;
+    font-weight: bold;
+}
+//house view
+div.house-image {
+    margin-bottom: 2rem;
+}
+.favourite-form {  button {
+        border: none;
+        background-color: white;
+        &:hover {
+            box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
         }
-        //tr.property {
-            //    padding: 10px;
-            //    &:hover {
-                //        background-color: silver;
-                //        font-weight: bold;
-                //    }
-                //}
-                //recent searches
-                ul.recent-searches {
-                    list-style-type: none;
-                }
-                td.recent-search {
-                    font-size: 2em;
-                    margin: 2rem;
-                }
-                h2.recent-searches {
-                    font-size: 2.5em;
-                    font-weight: bold;
-                }
-                //house view
-                div.house-image {
-                    margin-bottom: 2rem;
-                }
-                .favourite-form {  button {
-                        border: none;
-                        background-color: white;
-                        &:hover {
-                            box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
-                        }
-                    }
-                }
+    }
+}

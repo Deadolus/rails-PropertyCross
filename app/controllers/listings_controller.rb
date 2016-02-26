@@ -1,9 +1,6 @@
 class ListingsController < ApplicationController
     def new
         @recentsearches = session[:recentsearches]
-        #if @recentsearches then
-        #    #params[:recentsearches] += @location+","
-        #end
     end
 
     def show
@@ -13,22 +10,20 @@ class ListingsController < ApplicationController
             #Generate a valid url, chop the id (0) from the string
             @url = listing_short_house_path(location, 0).chop
             @propertylistings, @total_number = Listing.get_properties_with_total_number(location, @page)
-            if @propertylistings.any? then 
-                (session[:recentsearches] ||= []) << params[:location].downcase
-                session[:recentsearches].uniq!
-            end
         else 
             #search with lat/lon
             @latitude = params[:latitude]
             @longitude = params[:longitude]
-            @propertylistings, @total_number = Listing.get_location_with_total_number(@latitude, @longitude, @page)
+            location = params[:latitude]+"/".html_safe+params[:longitude]
             @url = location_listing_path(@latitude, @longitude)+"/"
-            @location = params[:latitude]+"/".html_safe+params[:longitude]
-            if @propertylistings.any? then 
-                (session[:recentsearches] ||= []) << params[:latitude]+"/"+params[:longitude].downcase
-                session[:recentsearches].uniq!
-            end
+            @propertylistings, @total_number = Listing.get_location_with_total_number(@latitude, @longitude, @page)
         end
+        if @total_number.to_i > 0 then
+                add_to_recent_searches(location, @total_number)
+            else
+                redirect_to root_path
+                flash[:alert] = "There were no properties found for the given location."
+            end
     end
 
     def create
@@ -47,7 +42,7 @@ class ListingsController < ApplicationController
                 redirect_to listing_url(params["search"]["location"])
             else
                 redirect_to root_path
-                flash[:alert] = "Invalid search"
+                flash[:alert] = "The location given was not recognised"
             end
         end
     end
@@ -56,5 +51,16 @@ class ListingsController < ApplicationController
         #redirect_to listing_url(request.location.latitude, request.location.longitude)
         redirect_to root_path
         flash[:alert] = "Not yet implemented"
+    end
+    private
+
+    #Can't add structs to session, so no advantages of using it here, create hash directly instead
+    #Struct.new("Search", :name, :results)
+
+    def add_to_recent_searches(name, results)
+        (session[:recentsearches] ||= []) <<{'name' => name.downcase, 'results' =>results}
+        session[:recentsearches].uniq!
+        #Leave only the last 4 searches
+        session[:recentsearches] = session[:recentsearches].last(4)
     end
 end

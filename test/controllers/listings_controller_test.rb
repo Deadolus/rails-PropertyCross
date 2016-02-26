@@ -18,8 +18,6 @@ class ListingsControllerTest < ActionController::TestCase
     end
 
     test "should be redirected on invalid search" do
-        post :create, nosense: "test"
-        assert_redirected_to root_url
         post :create, search: { location: "   "}
         assert_redirected_to root_url
 

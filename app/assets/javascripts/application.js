@@ -42,9 +42,10 @@ $(document).ready( function() {
     }();
 
  $(".table-clickeable").on("click", "tr", function() {
+            $(this).addClass('clicked')
             var url = $( this ).data("url");
             if((typeof url !== 'undefined') && (url != "")) {
-            document.location.href = url;
+            window.location= url;
             }
              });
 
@@ -53,6 +54,6 @@ $(document).ready( function() {
      var page = QueryString.page;
      if(typeof page == 'undefined')
          page = 1;
-     document.location.href = window.location.href.split('?')[0]+"?page="+(parseInt(page)+1)
+     window.location= window.location.href.split('?')[0]+"?page="+(parseInt(page)+1)
              });
 });

@@ -9,7 +9,7 @@ class LayoutHomePageTest < ActionDispatch::IntegrationTest
     end
     test "Search link present" do
         assert_select "form", count: 1
-        assert_select "form > input", count: 2
+        assert_select "form > input", count: 4
     end
     test "Favourites present" do
         assert_select 'a[href=?]', favourites_path,  text: "Favourites"
