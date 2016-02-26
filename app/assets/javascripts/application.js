@@ -41,10 +41,21 @@ $(document).ready( function() {
         return query_string;
     }();
 
+    // returns true if the element or one of its parents has the class classname
+    function hasSomeTableParentTheClass(element, classname) {
+            if (element.attr('class') != undefined && element.attr('class').split(' ').indexOf(classname)>=0) return true;
+            if(element.is('table') != true) 
+                return element.parent() && hasSomeTableParentTheClass(element.parent(), classname);
+    }
+
  $(".table-clickeable").on("click", "tr", function() {
             $(this).addClass('clicked')
             var url = $( this ).data("url");
             if((typeof url !== 'undefined') && (url != "")) {
+            index = $(this).parent().children().index($(this));
+            if(hasSomeTableParentTheClass($(this), 'table-indexable')) {
+                url=url+index;
+            }
             window.location= url;
             }
              });
