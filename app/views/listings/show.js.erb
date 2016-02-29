@@ -3,4 +3,5 @@
 <% end %>
 $(".load-more")[0].innerHTML = "Load more...<br>Results for <%= @location %>, showing <%= @propertylistings.count.to_s %> of <%= @total_number.to_s %> properties";
 $('.page-header h1').text("<%= @propertylistings.count.to_s+" of "+@total_number.to_s+" matches"%>")
-history.replaceState(null, document.title, "<%= listing_url(@location)+"?page="+(@propertylistings.count/20).to_s %>");
+<%# listing_url escapes forward slashes, so have to add ugly escaping here %>
+history.replaceState(null, document.title, "<%= listing_url(0).chop+@location+"?page="+(@propertylistings.count/20).to_s %>");

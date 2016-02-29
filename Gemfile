@@ -23,6 +23,8 @@ gem "sidekiq"
 gem "sinatra", ">= 1.3.0", :require => false
 gem "turbolinks", ">= 2.5.2"
 gem "geocoder"
+#Cookies are too small to store session information, use database instead
+gem "activerecord-session_store"
 
 group :production, :staging do
   gem "unicorn"

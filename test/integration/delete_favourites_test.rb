@@ -10,6 +10,18 @@ class DeleteFavouritesTest < ActionDispatch::IntegrationTest
         get favourites_path
         assert_select ".house-title", count: 1
         delete favourite_path(0)
+        assert_redirected_to favourites_path
+        follow_redirect!
+        assert_not flash.empty?
+        assert_select ".house-title", count: 0
+    end
+
+    test "should be able to delete favourites with Ajax" do
+        get favourite_path(0)
+        assert_select "#house-title", count: 1
+        xhr :delete, favourite_path(0)
+        #With ajay there's only a reload with template destroy.js.erb
+        assert_template 'favourites/destroy'
         get favourites_path
         assert_select ".house-title", count: 0
     end

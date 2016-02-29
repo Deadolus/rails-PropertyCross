@@ -1,0 +1,8 @@
+<%= form_for :favourite, url: favourite_path, remote: controller.class == HousesController ? true : false, method: :delete do |f| %>
+    <%= f.hidden_field :title, :value => @house.title %>
+<%= f.button :submit do %>
+
+    <div class="favourite-icon">
+    <h1> <span class = "glyphicon glyphicon-heart" aria-hidden="true"> </h1>
+    <% end %>
+    <% end %>

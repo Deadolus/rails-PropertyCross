@@ -16,9 +16,7 @@
 //= require turbolinks
 //= require_tree .
 
-Turbolinks.enableProgressBar();
-$(document).ready( function() {
-    var QueryString = function () {
+    function parseURL() {
         // This function is anonymous, is executed immediately and 
         // the return value is assigned to QueryString!
         var query_string = {};
@@ -39,49 +37,51 @@ $(document).ready( function() {
             }
         } 
         return query_string;
-    }();
+    }
+
+Turbolinks.enableProgressBar();
+$(document).ready( function() {
+    var QueryString = parseURL();
 
     // returns true if the element or one of its parents has the class classname
     function hasSomeTableParentTheClass(element, classname) {
-            if (element.attr('class') != undefined && element.attr('class').split(' ').indexOf(classname)>=0) return true;
-            if(element.is('table') != true) 
-                return element.parent() && hasSomeTableParentTheClass(element.parent(), classname);
+        if (element.attr('class') != undefined && element.attr('class').split(' ').indexOf(classname)>=0) return true;
+        if(element.is('table') != true) 
+            return element.parent() && hasSomeTableParentTheClass(element.parent(), classname);
     }
 
- $(".table-clickeable").on("click", "tr", function() {
-            $(this).addClass('clicked')
-            var url = $( this ).data("url");
-            if((typeof url !== 'undefined') && (url != "")) {
-            index = $(this).parent().children().index($(this));
-            if(hasSomeTableParentTheClass($(this), 'table-indexable')) {
-                url=url+index;
-            }
-            window.location= url;
-            }
-             });
+    $(".table-clickeable").on("click", "tr", function() {
+        $(this).addClass('clicked')
+        var url = $( this ).data("url");
+    if((typeof url !== 'undefined') && (url != "")) {
+        index = $(this).parent().children().index($(this));
+        if(hasSomeTableParentTheClass($(this), 'table-indexable')) {
+            url=url+index;
+        }
+        window.location= url;
+    }
+    });
 
- $(".load-more").on("click",  function() {
-     $( this )[0].innerHTML = "Loading...";
-     var page = QueryString.page;
-     if(typeof page == 'undefined')
-         page = 1;
-         //$.ajax(url: window.location.href.split('?')[0]+"?page="+(parseInt(page)+1) ).done(html) {
-         //$.ajax(url: "/listings/London?page=2" ).done(html) {
-         //    alert(html);
-         //}
-     //window.location= window.location.href.split('?')[0]+"?page="+(parseInt(page)+1)
-     $.ajax({
-           url: window.location.pathname+"?page="+(parseInt(page)+1),
-             context: document.body, 
-             dataType: 'script' 
-     }).done(function(html) {
-     if(typeof QueryString.page == 'undefined')
-         QueryString.page = 2;
-         else
-         QueryString.page = QueryString.page+1;
-
-           //alert(html);
-           //$( this ).addClass( "done" );
-     });
-             });
-});
+    $(".load-more").on("click",  function() {
+        $( this )[0].innerHTML = "Loading...";
+        var page = QueryString.page;
+        if(typeof page == 'undefined')
+        page = 1;
+    //$.ajax(url: window.location.href.split('?')[0]+"?page="+(parseInt(page)+1) ).done(html) {
+    //$.ajax(url: "/listings/London?page=2" ).done(html) {
+    //    alert(html);
+    //}
+    //window.location= window.location.href.split('?')[0]+"?page="+(parseInt(page)+1)
+    $.ajax({
+        url: window.location.pathname+"?page="+(parseInt(page)+1),
+        context: document.body, 
+        dataType: 'script' 
+    }).done(function(html) {
+    QueryString = parseURL();
+        //if(typeof QueryString.page == 'undefined')
+        //QueryString.page = 2;
+        //else
+        //QueryString.page = QueryString.page+1;
+    });
+    });
+    });

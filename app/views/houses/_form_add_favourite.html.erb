@@ -1,0 +1,14 @@
+                            <%= form_for :favourite, url: favourites_path, remote: true do |f| %>
+                            <%= f.hidden_field :price, :value => @house.price.to_s %>
+                        <%= f.hidden_field :title, :value => @house.title %>
+                        <%= f.hidden_field :summary, :value => @house.summary %>
+                        <%= f.hidden_field :img_url, :value => @house.img_url %>
+                        <%= f.hidden_field :thumb_url, :value => @house.thumb_url %>
+                        <%= f.hidden_field :bedroom_number, :value => @house.bedroom_number.to_s %>
+                        <%= f.hidden_field  :bathroom_number, :value => @house.bathroom_number.to_s %>
+                        <%= f.hidden_field  :listing_location, :value => @listing_location %>
+                        <%= f.button :submit do %>
+                            <div class="favourite-icon">
+                            <h1> <span class = "glyphicon glyphicon-heart-empty" aria-hidden="true"> </h1>
+                            <% end %>
+                            <% end %>
