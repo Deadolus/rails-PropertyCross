@@ -73,6 +73,16 @@ class SearchForLocationTest < ActionDispatch::IntegrationTest
         follow_redirect!
         assert_not flash.empty?
         assert_match  "There were no properties found for the given location", flash["alert"]
+    end
 
+    test "Older searches with other results number should be removed" do
+        search_for_properties("London")
+        get root_path
+        assert_match "London", response.body
+        assert_equal 1, session[:recentsearches].count
+        #Simulate an older search with different results number
+        session[:recentsearches][0]["results"] = 1
+        search_for_properties("London")
+        assert_not_equal 0, session[:recentsearches][0]["results"]
     end
 end

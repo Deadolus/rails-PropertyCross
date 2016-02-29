@@ -67,6 +67,13 @@ class ListingsController < ApplicationController
     #Struct.new("Search", :name, :results)
 
     def add_to_recent_searches(name, results)
+        unless session[:recentsearches].nil?
+        session[:recentsearches].each do |search|
+            if search['name'] == name.downcase
+                session[:recentsearches].delete search
+            end
+        end
+        end
         (session[:recentsearches] ||= []) <<{'name' => name.downcase, 'results' =>results}
         session[:recentsearches].uniq!
         #Leave only the last 4 searches
