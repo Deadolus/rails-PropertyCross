@@ -6,20 +6,20 @@ class ListingsController < ApplicationController
     def show
         @page = params.has_key?(:page) ? params[:page] : 1
         if params[:location]
-            location = params[:location].blank? ? "" : params[:location].capitalize
+            @location = params[:location].blank? ? "" : params[:location].capitalize
             #Generate a valid url, chop the id (0) from the string
-            @url = listing_short_house_path(location, 0).chop
-            @propertylistings, @total_number = Listing.get_properties_with_total_number(location, @page)
+            @url = listing_short_house_path(@location, 0).chop
+            @propertylistings, @total_number = Listing.get_properties_with_total_number(@location, @page)
         else 
             #search with lat/lon
             @latitude = params[:latitude]
             @longitude = params[:longitude]
-            location = params[:latitude]+"/".html_safe+params[:longitude]
+            @location = params[:latitude]+"/".html_safe+params[:longitude]
             @url = location_listing_path(@latitude, @longitude)+"/"
             @propertylistings, @total_number = Listing.get_location_with_total_number(@latitude, @longitude, @page)
         end
         if @total_number.to_i > 0 then
-                add_to_recent_searches(location, @total_number)
+                add_to_recent_searches(@location, @total_number)
             respond_to do |format|
                 format.html 
                 format.js 

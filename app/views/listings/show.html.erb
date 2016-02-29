@@ -6,7 +6,8 @@
     <% end %>
     <% if @propertylistings.count < @total_number %>
     <tr id='load-more-row'><td class="center-align load-more" colspan=2 >
-            Load more...
+            Load more...<br>
+            Results for <%= @location %>, showing <%= @propertylistings.count.to_s %> of <%= @total_number.to_s %> properties
     </td></tr>
 <% end %>
 </table>
