@@ -7,6 +7,10 @@ class HousesController < ApplicationController
       @house = Listing.get_house(params[:listing_location], @id)
       else
       @house = Listing.get_location_house(params[:latitude], params[:longitude], @id)
+      if @house.nil?
+          redirect_to root_path
+          flash[:alert] = "Could not show this house"
+      end
       end
   end
 end
