@@ -5,6 +5,7 @@ before_install:
     - "rm ${BUNDLE_GEMFILE}.lock"
 before_script:
     - bundle update
+    - psql -c 'create database propertyCross_test;' _U postgres
 cache: bundler
 addons:
     postgresql: "9.4"
