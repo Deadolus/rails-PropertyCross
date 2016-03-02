@@ -15,13 +15,13 @@ class FavouritesController < ApplicationController
     end
 
     def show
-        unless session[:favourites][params[:id].to_i].nil?
+        unless session[:favourites].nil? || session[:favourites][params[:id].to_i].nil?
             @house = PropertyListing.new session[:favourites][params[:id].to_i]
-            if @house.nil?
-                flash[:alert] ="Could not find favourite"
-                redirect_to root_path
-                return
-            end
+            #if @house.nil?
+            #    flash[:alert] ="There was a problem showing your favourite"
+            #    redirect_to root_path
+            #    return
+            #end
         else
             flash[:alert] = "Invalid favourite"
             redirect_to root_path

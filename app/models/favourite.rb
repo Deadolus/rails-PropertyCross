@@ -12,8 +12,8 @@ class Favourite
         (@session[:favourites] ||= []) << favourite
     end
     def delete_favourite_with_id(id)
+        if !id.nil? && id.to_i < @session[:favourites].count then
         m_id = id.to_i
-        if !id.nil? && m_id < @session[:favourites].count then
             @session[:favourites].delete_at(m_id)
             return true
         end

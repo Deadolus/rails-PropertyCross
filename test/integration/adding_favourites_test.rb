@@ -31,4 +31,22 @@ class AddingFavouritesTest < ActionDispatch::IntegrationTest
         assert_match @house[:title], response.body
         assert_match @house[:thumb_url], response.body
     end
+    test "redirect on empty favourite" do
+        get favourite_path(0)
+        assert_redirected_to root_path
+        follow_redirect!
+        assert_not flash.empty?
+        assert_match "Invalid favourite", response.body
+    end
+    #This test is probably not needed, as there shouldn't be any invalid houses being generated in the controller
+    #test "Invalid house in favourites" do
+    #    @house.delete :title
+    #    @house.delete :thumb_url
+    #    post @house
+    #    get_favourite_path(0)
+    #    assert_redirected_to root_path
+    #    follow_redirect!
+    #    assert_not flash.empty?
+    #    assert_match "There was a problem showing your favourite", response.body
+    #end
 end
