@@ -56,11 +56,6 @@ class ListingsController < ApplicationController
         end
     end
 
-    def create_location_based
-        #redirect_to listing_url(request.location.latitude, request.location.longitude)
-        redirect_to root_path
-        flash[:alert] = "Not yet implemented"
-    end
     private
 
     #Can't add structs to session, so no advantages of using it here, create hash directly instead

@@ -85,4 +85,35 @@ class SearchForLocationTest < ActionDispatch::IntegrationTest
         search_for_properties("London")
         assert_not_equal 0, session[:recentsearches][0]["results"]
     end
+
+    test "My location with empty results gets redirect to root_path" do
+        post listings_path,  search: { "location_based" => "true" }
+        #First redirect is to listings/testxxx
+        follow_redirect!
+        #listings show should now redirect to root_path
+        assert_redirected_to root_path
+        follow_redirect!
+        assert_not flash.empty?
+        assert_match  "There were no properties found", flash["alert"]
+    end
+
+    #FIXME - no use test so far
+    test "Should be able to search via my location" do
+        post listings_path,  search: { "location_based" => "true" }
+        #First redirect is to listings/testxxx
+        follow_redirect!
+        #listings show should now redirect to root_path
+        assert_redirected_to root_path
+        follow_redirect!
+        assert_not flash.empty?
+        assert_match  "There were no properties found", flash["alert"]
+    end
+    test "redirect on empty search" do
+        post listings_path,  search: { "location" => "" }
+        #listings show should now redirect to root_path
+        assert_redirected_to root_path
+        follow_redirect!
+        assert_not flash.empty?
+        assert_match  "The location given was not recognised", flash["alert"]
+    end
 end
