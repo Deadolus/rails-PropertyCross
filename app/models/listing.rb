@@ -37,7 +37,7 @@ class Listing
     #Gets properties from nestoria
     def self.get_properties_with_total_number(location, page=1)
         @@nestoria ||= MyNestoria.new
-        if(location) then
+        if(location && !location.blank?) then
             listings = []
             total_number = 0
             page.to_i.times do |p|
@@ -65,7 +65,7 @@ class Listing
 
     def self.get_location_with_total_number(lat, lon, page=1)
         @@nestoria ||= MyNestoria.new
-        if lat.to_f && lon.to_f then
+        if !lat.blank? && !lon.blank? && lat.to_f && lon.to_f then
             listings = []
             total_number = 0
             page.to_i.times do |p|
