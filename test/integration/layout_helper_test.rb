@@ -7,4 +7,8 @@ class LayoutHelperTest < ActionDispatch::IntegrationTest
     assert(page.has_selector?("body p"))
     assert_match(/Search for Properties/, page.title)
   end
+  test "will be redirected on invalid page request" do
+    visit("/0/")
+    assert_match(/Invalid request/, page.body)
+  end
 end
