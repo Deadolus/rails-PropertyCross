@@ -30,15 +30,26 @@ class FavouritesController < ApplicationController
     end
 
     def create
-        @favourites.create_favourite params[:favourite]
+        if @favourites.create_favourite params[:favourite]
         respond_to do |format|
             format.html { redirect_to :back rescue redirect_to root_url }
             format.js
         end
+        else
+        respond_to do |format|
+            @message = "Favourites limited to four entries for now, sorry"
+            format.html { 
+                flash[:notice] = @message
+                redirect_to :back rescue redirect_to root_url 
+            }
+            format.js { render :partial => "shared/add_notice", locals: { :message => @message } }
+        end
+        end
+
     end
 
     def destroy
-        if @favourites.delete_favourite_with_id(params[:id]) || @favourites.delete_favourite_with_title(params[:favourite]["title"])
+        if @favourites.delete_favourite_with_id(params[:id]) || !params[:favourite].nil? && @favourites.delete_favourite_with_title(params[:favourite]["title"])
             respond_to do |format|
                 format.html { 
                     flash[:notice] = "Successfully deleted the favourite"
@@ -47,9 +58,10 @@ class FavouritesController < ApplicationController
                 format.js
             end
         else
+            message = "Could not delete this favourite"
             respond_to do |format|
-                format.html { flash[:alert] = "Could not delete this favourite"; redirect_to :back }
-                format.js
+                format.html { flash[:alert] = message; redirect_to :back rescue redirect_to root_url }
+                format.js { render :partial => 'shared/add_danger', :locals => {:message => message } }
             end
         end
     end

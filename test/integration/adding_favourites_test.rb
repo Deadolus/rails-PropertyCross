@@ -49,4 +49,35 @@ class AddingFavouritesTest < ActionDispatch::IntegrationTest
     #    assert_not flash.empty?
     #    assert_match "There was a problem showing your favourite", response.body
     #end
+
+    #Only four favourites because of cookie overflow
+    test "http - can only four favourites for now" do
+        4.times do 
+        post favourites_path, favourite: @house #{ title: "Test", price: "666" }
+        end
+        get favourites_path
+        assert_select '.property', count: 4
+        post favourites_path, favourite: @house #{ title: "Test", price: "666" }
+        #redirected to root_url, as there's no back in minitest
+        assert_redirected_to root_url
+        follow_redirect!
+        assert_not flash.empty?
+        assert_match "Favourites limited", response.body
+        get favourites_path
+        assert_select '.property', count: 4
+
+    end
+    test "ajax - can only four favourites for now" do
+        4.times do 
+        xhr :post, favourites_path, favourite: @house #{ title: "Test", price: "666" }
+        end
+        get favourites_path
+        assert_select '.property', count: 4
+        xhr :post, favourites_path, favourite: @house #{ title: "Test", price: "666" }
+        #redirected to root_url, as there's no back in minitest
+        assert_match "Favourites limited", response.body
+        get favourites_path
+        assert_select '.property', count: 4
+
+    end
 end

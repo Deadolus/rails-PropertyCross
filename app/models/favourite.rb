@@ -9,15 +9,22 @@ class Favourite
         @session = session
     end
     def create_favourite(favourite)
-        (@session[:favourites] ||= []) << favourite
-    end
-    def delete_favourite_with_id(id)
-        if !id.nil? && id.to_i < @session[:favourites].count then
-        m_id = id.to_i
-            @session[:favourites].delete_at(m_id)
+        if !@session[:favourites].nil? && (@session[:favourites].count == 4)
+            return false
+        else
+            (@session[:favourites] ||= []) << favourite
             return true
         end
-        return false
+    end
+    def delete_favourite_with_id(id)
+        if !id.nil?
+            m_id = id.to_i
+            if !@session[:favourites][m_id].nil? && id.to_i < @session[:favourites].count then
+                @session[:favourites].delete_at(m_id)
+                return true
+            end
+            return false
+        end
     end
     def delete_favourite_with_title(title)
         if title

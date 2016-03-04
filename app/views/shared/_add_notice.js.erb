@@ -1,0 +1,6 @@
+$("#flash").html("<div class=\"alert alert-info\"><%= message %></div>")
+window.setTimeout(function() {
+    $(".alert").fadeTo(500, 0).slideUp(500, function(){
+        $(this).remove(); 
+    });
+}, 5000);

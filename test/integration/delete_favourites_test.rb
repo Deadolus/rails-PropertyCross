@@ -25,4 +25,20 @@ class DeleteFavouritesTest < ActionDispatch::IntegrationTest
         get favourites_path
         assert_select ".house-title", count: 0
     end
+    
+    test "can not delete non-existing favourite with http" do
+        get favourites_path
+        assert_select ".house-title", count: 1
+        delete favourite_path(1)
+        assert_redirected_to root_url
+        follow_redirect!
+        assert_not flash.empty?
+        assert_select ".house-title", count: 0
+    end
+    test "can not delete non-existing favourite with ajax" do
+        get favourites_path
+        assert_select ".house-title", count: 1
+        xhr :delete, favourite_path(1)
+        assert_match "Could not delete", response.body
+    end
 end
