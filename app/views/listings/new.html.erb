@@ -2,7 +2,10 @@
 Use the form below to search for houses to buy. You can search by place-name, postcode, or click 'My location', to search in your current location!
 <p>
 <%= bootstrap_form_for(:search, url: listings_path) do |f| %>
-    <%= f.text_field :location,  placeholder: 'Enter location...' %>
+    <%#= f.text_field :location,  placeholder: 'Enter location...' %>
+    <div class="form-group">    
+    <input placeholder="Enter location..." class="form-control" type="text" name="search[location]" id="search_location">
+</div>
     <%= f.hidden_field :location_based, :value => false %>
     <%= f.submit 'Search' %>
     <%#= link_to "My location", location_listing_path , class: "btn btn-default"%>
