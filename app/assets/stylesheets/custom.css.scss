@@ -1,9 +1,20 @@
+//Overwrite default styling for links
 a {
     &:hover {
         text-decoration: none;
         color: inherit;
     }
     color: inherit;
+}
+//Add a link class that behaves normal back
+a.normal {
+    text-decoration: underline;
+    &:hover {
+        font-weight: bold; 
+    }
+    &:visited {
+        text-color: dark-blue;
+    }
 }
 //Property listing table
 table.property-listing {
